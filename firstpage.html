@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+*
+{
+box-sizing:border-box;
+}
+html,body
+{
+margin:0px;
+height:100%;
+width:100%;
+}
+.topdiv
+{
+width:100%;
+height:10%;
+background-color:rgb(59, 89, 152);
+}
+.maindiv
+{
+width:100%;
+height:90%;
+
+}
+.loginform
+{
+margin-top:15px;
+height:30px;
+width:20%;
+}
+.leftdiv
+{
+height:100%;
+float:left;
+width:50%;
+background-color:white;
+}
+.rightdiv
+{
+height:100%;
+float:left;
+width:50%;
+overflow:auto;
+}
+.mainform
+{
+width:75%;
+display:block;
+margin-top:10px;
+margin-bottom:5px;
+margin-left:auto;
+margin-right:auto;
+padding:10px;
+font-size:15px;
+outline:none;
+border:2px solid rgb(59, 89, 152);
+border-radius:8px;
+}
+.leftdiv
+{
+text-align:center;
+}
+</style>
+</head>
+<body>
+<div class="topdiv">
+<form action="userlogin.php" method="post">
+<input type="submit" value="Login" style="float:right;margin-left:2px;width:10%;" class="loginform">
+<input type="text" name="phone" placeholder="Phone No" style="float:right;margin-left:2px;" class="loginform" required>
+<input type="email" name="email" placeholder="Enter your email" style="float:right;" class="loginform" required>
+</form>
+</div>
+<div class="maindiv">
+<div class="leftdiv">
+<h1 style="margin:0px;margin-top:200px;font-family:cursive;color:rgb(59, 89, 152);">Blood Bank </h1>
+<h1 style="margin:0px;font-family:cursive;color:rgb(59, 89, 152);">Donate your blood for a reason, let the reason to be life</h1>
+</div>
+<div class="rightdiv">
+<form action="registrationentry.php" method="post">
+<center><h2 style="font-family:cursive;margin:0px;">Sign Up</h2></center>
+<input type="text" name="username" class="mainform" placeholder="Username" required>
+<input type="email" name="email" class="mainform" placeholder="email" required>
+<input type="text" name="phone" class="mainform" class="mainform" placeholder="Phone" required>
+<input type="text" name="address" class="mainform" placeholder="Address" required>
+<select name="bloodgroup" class="mainform"  required>
+          <option value="" disabled selected>Select your bloodgroup</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+</select>
+<textarea id="demo" name="latitude" class="mainform" style="resize:none;" placeholder="Latitude" required readonly></textarea>
+<textarea id="demo1" name="longitude" class="mainform" style="resize:none;" placeholder="Longitude"  required readonly></textarea>
+<button type="button" onclick="getLocation();getLocation3();" style="background-color:rgb(59, 89, 152);color:white;" class="mainform">Get My Location</button>
+<input type="submit" value="Register" class="mainform">
+</form>
+</div>
+</div>
+<script>
+var x = document.getElementById("demo");
+var y= document.getElementById("demo1")
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(showPosition);
+     navigator.geolocation.getCurrentPosition(showPosition,showError);
+
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";}
+    }
+    
+function showPosition(position) {
+    x.innerHTML= position.coords.latitude; 
+   y.innerHTML=position.coords.longitude;
+    var latlon = position.coords.latitude + "," + position.coords.longitude;
+    var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
+    +latlon+"&zoom=14&size=400x300&key=AIzaSyAdu0anNGqCXBBw3naBCsMzbeCxnwqJXKo";
+    document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+
+}
+
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            x.innerHTML = "User denied the request for Geolocation."
+            break;
+        case error.POSITION_UNAVAILABLE:
+            x.innerHTML = "Location information is unavailable.CHECK NETWORK"
+            break;
+        case error.TIMEOUT:
+            x.innerHTML = "The request to get user location timed out."
+            break;
+        case error.UNKNOWN_ERROR:
+            x.innerHTML = "An unknown error occurred."
+            break;
+    }
+}
+</script>
+</body>
+</html>
